@@ -9,13 +9,12 @@ import time
 import re
 import requests
 import bs4
-import config
 
 path = '/Users/sanfengwang/Documents/GitHub/cosmereBot/visited.txt'
 # Location of file where id's of already visited comments are maintained
 
 header = "**This Novel's Placement in the Cosmere:**\n"
-footer = '\n*---This summary was extracted from [Coppermind.net](http://coppermind.net)'
+footer = '\n*---This summary was extracted from [Coppermind.net](http://coppermind.net)---*'
 
 
 def authenticate():
@@ -74,25 +73,26 @@ def run_explainbot(reddit):
                         myurl = 'http://coppermind.net/wiki/' + words[0]
                         for word in words[1:]:
                             myurl = myurl + '_' + word
-            
-            file_obj_r = open(path,'r')
-                        
-            try:
-                explanation = fetchdata(myurl)
-            except:
-                print('Exception!!! Page for novel does not exist\n')
-            else:
-                if comment.id not in file_obj_r.read().splitlines():
-                    print('Link is unique...posting explanation\n')
-                    comment.reply(header + explanation + footer)
-                    
-                    file_obj_r.close()
+                    file_obj_r = open(path,'r')
+                                
+                    try:
+                        explanation = fetchdata(myurl)
+                    except:
+                        print('Exception!!! Page for novel does not exist\n')
+                    else:
+                        if comment.id not in file_obj_r.read().splitlines():
+                            print('Link is unique...posting explanation\n')
+                            comment.reply(header + explanation + footer)
+                            
+                            file_obj_r.close()
 
-                    file_obj_w = open(path,'a+')
-                    file_obj_w.write(comment.id + '\n')
-                    file_obj_w.close()
+                            file_obj_w = open(path,'a+')
+                            file_obj_w.write(comment.id + '\n')
+                            file_obj_w.close()
+                        else:
+                            print('Already visited comment...no reply needed\n')
                 else:
-                    print('Already visited comment...no reply needed\n')
+                    print("Comment does not contain a Cosmere novel")
             
             time.sleep(10)
 
