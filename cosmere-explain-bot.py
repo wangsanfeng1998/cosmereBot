@@ -9,8 +9,9 @@ import time
 import re
 import requests
 import bs4
+import config
 
-path = '/Users/sanfengwang/Documents/GitHub/cosmereBot/visted.txt'
+path = '/Users/sanfengwang/Documents/GitHub/cosmereBot/visited.txt'
 # Location of file where id's of already visited comments are maintained
 
 header = "**This Novel's Placement in the Cosmere:**\n"
@@ -20,7 +21,8 @@ footer = '\n*---This summary was extracted from [Coppermind.net](http://coppermi
 def authenticate():
     
     print('Authenticating...\n')
-    reddit = praw.Reddit('copperbot', user_agent = 'web:cosmere-placement-bot:v0.1')
+    reddit = praw.Reddit("copperbot",
+                user_agent = 'web:cosmere-placement-bot:v0.1')
     print('Authenticated as {}\n'.format(reddit.user.me()))
     return reddit
 
