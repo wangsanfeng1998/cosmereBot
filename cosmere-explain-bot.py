@@ -59,9 +59,9 @@ def run_explainbot(reddit):
     
     for comment in reddit.subreddit('test').comments(limit = 250):
 
-        for sublist in listOfBooks
-            for title in sublist
-                if title in comment.body
+        for sublist in bookList:
+            for title in sublist:
+                if title in comment.body:
                     print(title + 'mentioned in comment with comment ID: ' + comment.id)
                     words = title.split()
                     if sublist == booksWithThe:
@@ -71,14 +71,14 @@ def run_explainbot(reddit):
                     else:
                         myurl = 'http://coppermind.net/wiki/' + words[0]
                         for word in words[1:]:
-                        myurl = myurl + '_' + word
+                            myurl = myurl + '_' + word
             
             file_obj_r = open(path,'r')
                         
             try:
                 explanation = fetchdata(myurl)
             except:
-                print('Exception!!! Page for' title 'does not exist\n')
+                print('Exception!!! Page for novel does not exist\n')
             else:
                 if comment.id not in file_obj_r.read().splitlines():
                     print('Link is unique...posting explanation\n')
