@@ -10,7 +10,7 @@ import re
 import requests
 import bs4
 
-path = '/home/ayush/Projects/explainxkcdbot/commented.txt'
+path = '/Users/sanfengwang/Documents/GitHub/cosmereBot/visted.txt'
 # Location of file where id's of already visited comments are maintained
 
 header = "**This Novel's Placement in the Cosmere:**\n"
@@ -49,10 +49,10 @@ def run_explainbot(reddit):
 
     booksWithThe = ["Final Empire", "Well of Ascension", "Hero of Ages", \
         "Alloy of Law", "Bands of Mourning", "Lost Metal", "Emperor's Soul", \
-        "Secret History", "Way of Kings",  ]
+        "Way of Kings",  ]
     booksWithoutThe = ["Elantris", "Shadows of Self", "Warbreaker", \
-    "Shadows for Silence in the Forests of Hell", "Sixth of the Dusk", "Arcanum Unbounded", \
-    "White Sand", "Words of Radiance", "Oathbringer"]
+    "Shadows for Silence in the Forests of Hell", "Sixth of the Dusk", "Secret History", \
+    "Arcanum Unbounded", "White Sand", "Words of Radiance", "Oathbringer"]
     bookList = [booksWithThe, booksWithoutThe]
     
     print("Getting 250 comments...\n")
@@ -65,9 +65,13 @@ def run_explainbot(reddit):
                     print(title + 'mentioned in comment with comment ID: ' + comment.id)
                     words = title.split()
                     if sublist == booksWithThe:
-                        myurl = 'http://coppermind.net/wiki/The_' + str(xkcd_id)
+                        myurl = 'http://coppermind.net/wiki/The'
+                        for word in words:
+                            myurl = myurl + '_' + word
                     else:
-                        myurl = 'http://coppermind.net/wiki/' +
+                        myurl = 'http://coppermind.net/wiki/' + words[0]
+                        for word in words[1:]:
+                        myurl = myurl + '_' + word
             
             file_obj_r = open(path,'r')
                         
